@@ -1,75 +1,400 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE HTML>
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jonathan Lee</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Personal website">
-    <meta name="author" content="Jonathan Lee">
-    <meta name="keywords" content="UC, Berkeley, EECS, Regents, Machine, Learning">
-    <link rel="icon" href="assets/images/avatar.jpg">
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-    <title>Jonathan Lee</title>
+				<!-- Header -->
+					<header id="header">
+						<div class="logo">
+							<span class="icon fa-cogs"></span>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>Jonathan Lee</h1>
+								<p>Machine learning machine learning - <a href="https://eecs.berkeley.edu/">EECS @ UC Berkeley</a></p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="#intro">Intro</a></li>
+								<li><a href="#work">Work</a></li>
+								<li><a href="#about">About</a></li>
+								<li><a href="#contact">Contact</a></li>
+							</ul>
+						</nav>
+					</header>
 
-    <link href="./assets/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/cover.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+				<!-- Main -->
+					<div id="main">
 
-  </head>
+						<!-- Intro -->
+							<article id="intro">
+								<h2 class="major">Intro</h2>
+								<span class="image main"><img src="images/poorastro.jpg" alt="" /></span>
+								<blockquote>"Save him, cameraman! ... Woah bruh ... why isn't Cameraman a superhero?!"</blockquote>
+								<ul>
+									Abilities: 
+									<li>Photographic memory. Hah.</li>
+									<li>Vertical video conversion</li>
+									<li>Reconstruct potato stuff to crispy</li>
+									<li>VFX life</li>
+								</ul>
+								<p>Yo, you know what's crazy? A lot of the things listed above, common problems video producers face daily, can be solved <b>now</b> with machine learning!</p>
+								<table>
+									<tr>
+										<th>Problem</th>
+										<th>Solution</th>
+									</tr>
+									<tr>
+										<td>Space</td>
+										<td>Dimensionality reduction</td>
+									</tr>
+									<tr>
+										<td>Bad footage</td>
+										<td>Generative models; neural networks</td>
+									</tr>
+									<tr>
+										<td>VFX Life</td>
+										<td>TBD: Lots of neural nets?</td>
+									</tr>
+									<tr>
+										<td>Marketing</td>
+										<td>Collaborative filtering / content-based recommendation</td>
+									</tr>
+								</table>
+								<h6 style="float:right">&copy; Jonathan Lee 2017</h6>
+							</article>
 
-  <body>
+						<!-- Work -->
+							<article id="work">
+								<h2 class="major">Work</h2>
+								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
+								<blockquote>"Very much like this stock photo above, my future is uncertain - a grey expanse of the infinite unknown."</blockquote>
+								<p>Yup, but here are some things I've been working on this past year: </p>
+								<dl>
+									<dt>
+										<h3>Deep Active Learning <span class="icon fa-filter"></span><span style="float:right">1/17-Present</span></h3>
+										<a href="https://ml.berkeley.edu" style="float:right">ML@Berkeley</a>
+									</dt>								
+									<dd>Team of five researching active learning, a supervised learning framework in which a model minimizes the number / determines the best unlabeled data points to query to improve classification. We hypothesize that this would not only make the data scraping process less expensive, but also result in a model more effective in learning its data. Currently, we’re conducting tests on the Yelp dataset.</dd>
+									<br />
+									<dt>
+										<h3>Lexicon <span class="icon fa-github"></span><span style="float:right">8-12/16</span></h3>
+										<a href="https://ml.berkeley.edu" style="float:right">ML@Berkeley</a>
+									</dt>								
+									<dd>Worked as a member of the GitHub team to improve Linguist, GitHub's file and repository language classifier. With our new dataset and Linear SVC model, we were able to achieve a 40x faster classification time, a 15% increase in accuracy, and we were able to cover 50 additional languages - all without the use of any hard-coded rules! Next, we plan on using RNNs to generate nonlinear features to feed into our Linear SVC to further improve classification. Presented our work at GitHub HQ for their engineering all-hands.</dd>
+									<br />
+									<dt>
+										<h3>bSafe <span class="icon fa-life-bouy"></span><span style="float:right">11/16</span></h3>
+										<a href="https://calhacks.io" style="float:right">CalHacks 3.0</a>
+									</dt>					
+									<dd>In lieu of the recent outbreak in crimes around student housing at Berkeley, my team designed an app to pool students walking alone at night. Our pooling algorithm matches students based on their origin and destination – finding the minimal area between their “walking” vectors.</dd>
+								</dl>
+							</article>
+							
+						<!-- About -->
+							<article id="about">
+								<h2 class="major">About</h2>
+								<span class="image right"><img src="images/prisma.jpg" alt="" /></span>
+								<blockquote>"Howdy y'all, I'm from Texas. They call me Speedy Gonzales.
+								<br />
+								I love basketball. Spaghetti and meatballs. Pizza will do too - just make sure it's cooked through.
+								<br />
+								I'm quick wit the rock. I can defend the block.
+								<br />
+								In crunch time, I show up. Head over to the <a href="#contact">contact page</a>, if you ever wanna ball up...
+								<br />
+								or talk!" <span style="float:right">- Jonathan Lee 2017</span>
+								</blockquote>
+							</article>
 
-    <div class="site-wrapper">
+						<!-- Contact -->
+							<article id="contact">
+								<h2 class="major">Contact</h2>
+								<h4>Message me: </h4>
+								<p><a href="mailto:j.lee@ml.berkeley.edu">j.lee@ml.berkeley.edu</a></p>
+								<h4>Check me out: </h4>
+								<ul class="icons">
+									<li><a href="https://www.linkedin.com/in/jonberkelee" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/lolzypops" class="icon fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://ml.berkeley.edu" class="icon fa-globe"><span class="label">Machine Learning @ Berkeley</span></a></li>
+								</ul>
+							</article>
 
-      <div class="site-wrapper-inner">
+						<!-- Elements -->
+							<article id="elements">
+								<h2 class="major">Elements</h2>
 
-        <div class="cover-container">
+								<section>
+									<h3 class="major">Text</h3>
+									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
+									This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
+									This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+									<hr />
+									<h2>Heading Level 2</h2>
+									<h3>Heading Level 3</h3>
+									<h4>Heading Level 4</h4>
+									<h5>Heading Level 5</h5>
+									<h6>Heading Level 6</h6>
+									<hr />
+									<h4>Blockquote</h4>
+									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+									<h4>Preformatted</h4>
+									<pre><code>i = 0;
 
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">Jonathan Lee</h3>
-              <nav class="nav nav-masthead">
-                <a class="nav-link active" href="index.html">Home</a>
-                <a class="nav-link" href="portfolio.html">Portfolio</a>
-                <a class="nav-link" href="contact.html">Contact</a>
-              </nav>
-            </div>
-          </div>
+while (!deck.isInOrder()) {
+    print 'Iteration ' + i;
+    deck.shuffle();
+    i++;
+}
 
-          <div class="inner cover">
-            <img src="assets/images/avatar.jpg" class="img-thumbnail" style="width:320px">
-            <br />
-            <br />
-            <div class="hometext">
-              <p><b>Regents' and Chancellor's Scholar</b> at UC Berkeley majoring in <b>EECS</b></p>
-              <p>Also known as <b>Lolzypops</b>, the machine learning machine learning</p>
-              <p>In the future, my friends and I are going to <b>change the world.</b></p>
-            </div>
-            <p class="lead">
-              <a href="portfolio.html" class="btn btn-lg btn-secondary">Check out my progress!</a>
-            </p>
-          </div>
+print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+								</section>
 
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Henrietta, Texas by <a href="https://unsplash.com/@averieclaire">averie woodard</a> | Bootstrap by <a href="https://twitter.com/mdo">@mdo</a></p>
-            </div>
-          </div>
+								<section>
+									<h3 class="major">Lists</h3>
 
-        </div>
+									<h4>Unordered</h4>
+									<ul>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Sagittis adipiscing.</li>
+										<li>Felis enim feugiat.</li>
+									</ul>
 
-      </div>
+									<h4>Alternate</h4>
+									<ul class="alt">
+										<li>Dolor pulvinar etiam.</li>
+										<li>Sagittis adipiscing.</li>
+										<li>Felis enim feugiat.</li>
+									</ul>
 
-    </div>
+									<h4>Ordered</h4>
+									<ol>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Etiam vel felis viverra.</li>
+										<li>Felis enim feugiat.</li>
+										<li>Dolor pulvinar etiam.</li>
+										<li>Etiam vel felis lorem.</li>
+										<li>Felis enim et feugiat.</li>
+									</ol>
+									<h4>Icons</h4>
+									<ul class="icons">
+										<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+									</ul>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./assets/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="./assets/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <script src="./assets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./assets/ie10-viewport-bug-workaround.js"></script>
+									<h4>Actions</h4>
+									<ul class="actions">
+										<li><a href="#" class="button special">Default</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+									<ul class="actions vertical">
+										<li><a href="#" class="button special">Default</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+								</section>
 
+								<section>
+									<h3 class="major">Table</h3>
+									<h4>Default</h4>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Item One</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Two</td>
+													<td>Vis ac commodo adipiscing arcu aliquet.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Three</td>
+													<td> Morbi faucibus arcu accumsan lorem.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Four</td>
+													<td>Vitae integer tempus condimentum.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Five</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td>100.00</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
 
-</body></html>
+									<h4>Alternate</h4>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Price</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Item One</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Two</td>
+													<td>Vis ac commodo adipiscing arcu aliquet.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Three</td>
+													<td> Morbi faucibus arcu accumsan lorem.</td>
+													<td>29.99</td>
+												</tr>
+												<tr>
+													<td>Item Four</td>
+													<td>Vitae integer tempus condimentum.</td>
+													<td>19.99</td>
+												</tr>
+												<tr>
+													<td>Item Five</td>
+													<td>Ante turpis integer aliquet porttitor.</td>
+													<td>29.99</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<td colspan="2"></td>
+													<td>100.00</td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</section>
+
+								<section>
+									<h3 class="major">Buttons</h3>
+									<ul class="actions">
+										<li><a href="#" class="button special">Special</a></li>
+										<li><a href="#" class="button">Default</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="#" class="button">Default</a></li>
+										<li><a href="#" class="button small">Small</a></li>
+									</ul>
+									<ul class="actions">
+										<li><a href="#" class="button special icon fa-download">Icon</a></li>
+										<li><a href="#" class="button icon fa-download">Icon</a></li>
+									</ul>
+									<ul class="actions">
+										<li><span class="button special disabled">Disabled</span></li>
+										<li><span class="button disabled">Disabled</span></li>
+									</ul>
+								</section>
+
+								<section>
+									<h3 class="major">Form</h3>
+									<form method="post" action="#">
+										<div class="field half first">
+											<label for="demo-name">Name</label>
+											<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
+										</div>
+										<div class="field half">
+											<label for="demo-email">Email</label>
+											<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
+										</div>
+										<div class="field">
+											<label for="demo-category">Category</label>
+											<div class="select-wrapper">
+												<select name="demo-category" id="demo-category">
+													<option value="">-</option>
+													<option value="1">Manufacturing</option>
+													<option value="1">Shipping</option>
+													<option value="1">Administration</option>
+													<option value="1">Human Resources</option>
+												</select>
+											</div>
+										</div>
+										<div class="field half first">
+											<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+											<label for="demo-priority-low">Low</label>
+										</div>
+										<div class="field half">
+											<input type="radio" id="demo-priority-high" name="demo-priority">
+											<label for="demo-priority-high">High</label>
+										</div>
+										<div class="field half first">
+											<input type="checkbox" id="demo-copy" name="demo-copy">
+											<label for="demo-copy">Email me a copy</label>
+										</div>
+										<div class="field half">
+											<input type="checkbox" id="demo-human" name="demo-human" checked>
+											<label for="demo-human">Not a robot</label>
+										</div>
+										<div class="field">
+											<label for="demo-message">Message</label>
+											<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" value="Send Message" class="special" /></li>
+											<li><input type="reset" value="Reset" /></li>
+										</ul>
+									</form>
+								</section>
+
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Lolzypops | <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- BG -->
+			<div id="bg"></div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
