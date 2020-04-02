@@ -24,6 +24,16 @@
 						<p>Material Modeling and Depth of Field</p>
 					</header>
 
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html" class="active">Home</a></li>
+							<li><a href="#first">Material Modeling</a></li>
+							<li><a href="#second">Depth of Field</a></li>
+							<li><a href="#cta">Conclusion</a></li>
+						</ul>
+					</nav>
+
 				<!-- Main -->
 					<div id="main">
 
@@ -32,7 +42,7 @@
 								<span class="image main"><img src="images/pathtracer/dragon_hq.png" alt="" /></span>
 								<h2>Project Summary</h2>
 								<p>This is a really cool assignment from <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>, Computer Graphics, at Berkeley! In this project, I implement the BSDFs for mirror and glass materials (functions that simulate how light bounces off, diffuses from, or refracts within different materials) as well as a depth of field effect - all accomplished through ray tracing. Check it out!</p>
-
+								<br id="first">
 								<h2>Part 1: Mirror and Glass Materials</h2>
 								<p>This part focused on implementing the general reflecting and refracting property of materials - defining the behavior of a ray when it hits a material surface. In computer graphics, this behavior is defined by a BSDF function unique to every material. Given an incident ray, the BSDF outputs a random outgoing ray direction and the probability this was the outgoing ray resulting from the incident ray.</p>
 									
@@ -92,7 +102,7 @@
 										<div class="col-4"><span class="image fit"><img src="images/pathtracer/spheres100.png" alt="" /><figcaption align="middle">Max Ray Depth = 100</figcaption></span></div>
 									</div>
 								</div>
-
+								<br id="second">
 								<h2>Part 4: Depth of Field</h2>
 								<p>Originally, we had a camera in which we sample several light rays within the area of an image associated with a pixel on the sensor. Now we've introduced a lens into the camera which slightly refracts the direction that a ray originating from the image goes towards on the camera sensor. We imitate the sampling of light through the lens by randomly sampling points in the lens area that a light ray from the image would hit. After we determine the point on the lens that the light ray hits, we can calculate the point on the focal point of the camera lens that the light ray would intersect. This is what appears on the sensor of the camera. The random sampling of a wide range of light that is capable of hitting our camera lens for a specific pixel value on our sensor is what causes the depth of field effect.</p>
 
@@ -122,7 +132,7 @@
 									</div>
 								</div>
 								<p>As we increase the aperture (lens radius), the depth of field gets smaller or the amount of the picture in focus gets smaller and the blur gets stronger as we depart from the area of focus (the chest area of the dragon at a focal distance of 2.7).</p>
-
+								<br id="cta">
 								<h2>Conclusion</h2>
 								<p>This was such a fun project. It's actually so crazy how many light rays computers can simulate, and it's so crazy how close to real life these objects look, and it's so crazy that we can model materials with mathematical formulas! It's unfathomable and awe-inspiring just how much computation makes up the reality we live in today. Just want to share some quick stats on exactly what it took to render the header image at the top of this page: </p>
 								<b>Input: </b>
