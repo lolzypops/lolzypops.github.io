@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jonathan Lee | CS 184</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		
+		<div id="particles-js"></div>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Pathtracer</h1>
+						<p>Material Modeling and Depth of Field</p>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<section id="content" class="main">
+								<span class="image main"><img src="images/pathtracer/dragon_hq.png" alt="" /></span>
+								<h2>Project Summary</h2>
+								<p>This is a really cool assignment from <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>, Computer Graphics, at Berkeley! In this project, I implement the BSDFs for mirror and glass materials (functions that simulate how light bounces off, diffuses from, or refracts within different materials) as well as a depth of field effect - all accomplished through ray tracing. Check it out!</p>
+
+								<h2>Part 1: Mirror and Glass Materials</h2>
+								<p>This part focused on implementing the general reflecting and refracting property of materials - defining the behavior of a ray when it hits a material surface. In computer graphics, this behavior is defined by a BSDF function unique to every material. Given an incident ray, the BSDF outputs a random outgoing ray direction and the probability this was the outgoing ray resulting from the incident ray.</p>
+									
+								<p>For perfect mirrors, given an incident ray, there is only one possible outgoing ray: the ray resulting from reflecting the incident ray across the surface normal. Thus, for the mirror BSDF, we implemented a sampling function that given an incident ray upon the mirror surface would return the ray reflected across the surface normal with 100% probability.</p>
+
+								<div align="center">
+									<span class="image">
+										<img src="images/pathtracer/mirror_dragon.png" alt="" width=480 height=360/>
+										<figcaption align="middle">The Mirror Dragon</figcaption>
+									</span>
+								</div>
+
+								<p>Next, for glass, both reflection and refraction occur when light hits the surface. To implement refraction, we consider if the incident ray is entering or exiting the non-air medium. Based on whether or not it is exiting, we calculate &eta; to be the ratio between the origin medium and the destination medium. Using &eta; we can directly calculate each of the outgoing ray's components. Before we return these calculations, we also check whether or not the ray undergoes total internal reflection, in the case in which the light ray is unable to escape the origin medium and is refracted back inside. Finally, to account for both reflection and refraction in glass' BSDF function, we use Schlick's approximation, choosing to return a refracted ray with some probability R and the perfectly reflected ray with probability 1-R, scaling each ray's returned probability respectively.</p>
+
+								<b>0-bounce</b>
+								<p>Only light from light sources can reach our viewpoint in 0 bounces.</p>
+								<div align="center">
+									<span class="image">
+										<img src="images/pathtracer/spheres0.png" alt="" width=480 height=360/>
+										<figcaption align="middle">Max Ray Depth = 0</figcaption>
+									</span>
+								</div>
+
+								<b>1-bounce</b>
+								<p>We can now see the walls and the direct spots at which light has been reflected off of the balls. Notice that the light spot on the glass ball is grainy - this is because only some light from the light source that hits the ball is reflected, the rest is refracted through the ball and incapable of reaching our view point in 1 bounce. Also the ceiling is dark because no light has been bounced off the ceiling yet from our scene.</p>
+								<div align="center">
+									<span class="image">
+										<img src="images/pathtracer/spheres1.png" alt="" width=480 height=360/>
+										<figcaption align="middle">Max Ray Depth = 1</figcaption>
+									</span>
+								</div>
+
+								<b>2-bounce</b>
+								<p>Now we can see light that has been reflected off different surfaces off the mirror ball into our view point. We can also see light that has been refracted through the glass ball onto the ground into our view point. The ceiling is now lit up by light from different surfaces as well. This is the first image in which we see light in the shadow of the glass ball. This is light that has come from the light source, refracted through the ball, bounced off the ground and into our view point. Finally, the glass ball is slightly brighter because refracted light has been able to enter through the ball and exit into our view point. We can see the glass ball looking dark in the mirror ball because the image on the mirror ball must be 1-bounce only.</p>
+								<div align="center">
+									<span class="image">
+										<img src="images/pathtracer/spheres2.png" alt="" width=480 height=360/>
+										<figcaption align="middle">Max Ray Depth = 2</figcaption>
+									</span>
+								</div>
+
+								<b>3-bounce</b>
+								<p>More light from the scene enter into the glass ball and is able to be refracted out to our view point, making the ball appear lighter to us. It seems as though light from the upper right hand corner of the room is finally refracted through the glass ball at this point: one bounce off the ground, onto the upper right hand corner, into the glass ball and out towards our view point.</p>
+								<div align="center">
+									<span class="image">
+										<img src="images/pathtracer/spheres3.png" alt="" width=480 height=360/>
+										<figcaption align="middle">Max Ray Depth = 3</figcaption>
+									</span>
+								</div>
+
+								<b>4-bounces Onward</b>
+								<p>More light from the scene enter into the glass ball and is able to be refracted out to our view point, making the ball appear lighter to us. A small bright splotch on the right of the purple wall appears since the glass ball is appearing significantly bright enough in contrast to environment lighting.</p>
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-4"><span class="image fit"><img src="images/pathtracer/spheres4.png" alt="" /><figcaption align="middle">Max Ray Depth = 4</figcaption></span></div>
+										<div class="col-4"><span class="image fit"><img src="images/pathtracer/spheres5.png" alt="" /><figcaption align="middle">Max Ray Depth = 5</figcaption></span></div>
+										<div class="col-4"><span class="image fit"><img src="images/pathtracer/spheres100.png" alt="" /><figcaption align="middle">Max Ray Depth = 100</figcaption></span></div>
+									</div>
+								</div>
+
+								<h2>Part 4: Depth of Field</h2>
+								<p>Originally, we had a camera in which we sample several light rays within the area of an image associated with a pixel on the sensor. Now we've introduced a lens into the camera which slightly refracts the direction that a ray originating from the image goes towards on the camera sensor. We imitate the sampling of light through the lens by randomly sampling points in the lens area that a light ray from the image would hit. After we determine the point on the lens that the light ray hits, we can calculate the point on the focal point of the camera lens that the light ray would intersect. This is what appears on the sensor of the camera. The random sampling of a wide range of light that is capable of hitting our camera lens for a specific pixel value on our sensor is what causes the depth of field effect.</p>
+
+								<b>How does a pinhole camera model differ from the thin lens camera model?</b>
+								<p>Pinhole cameras allow very few and specific rays of light to be exposed to a point on the film since light travels in lines and only a few of these lines pass through the pinhole, whereas lens allow multiple rays of light to be focused onto a point on the sensor. However, since the pinhole camera doesn't have a focus (theoretically it can capture every ray in a scene and expose it to a sensor large enough), it has infinite depth of field, everything will be in focus given enough exposure time. On the contrary, only light from regions that are refracted into the focal point of the lens will be perfectly in focus, the area of the sensor away from the focal point will be more and more out of focus - receiving light from different parts of the scene. Lenses tend to gather more light rays from a specific point in the scene which are then focused onto the respective point on the sensor and thus need a much shorter exposure time for a bright image (pinhole camera images tend to be darker since less light is gathered per unit time).</p>
+
+								<b>Focus stack of 4 different focal distances.</b>
+								<p></p>
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.4.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.4</figcaption></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.6.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.6</figcaption></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.8.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.8</figcaption></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f4.0.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 4.0</figcaption></span></div>
+									</div>
+								</div>
+								<p>We can see that as the focal distance increases, we transition in focus across the head of the dragon to the tail, as the head is closer to our view point than the tail.</p>
+
+								<b>Stack of 4 different apertures.</b>
+								<p></p>
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.05_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.05, FD = 2.7</figcaption></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.15_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.15, FD = 2.7</figcaption></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.25_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.25, FD = 2.7</figcaption></span></div>
+										<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.35_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.35, FD = 2.7</figcaption></span></div>
+									</div>
+								</div>
+								<p>As we increase the aperture (lens radius), the depth of field gets smaller or the amount of the picture in focus gets smaller and the blur gets stronger as we depart from the area of focus (the chest area of the dragon at a focal distance of 2.7).</p>
+
+								<h2>Conclusion</h2>
+								<p>This was such a fun project. It's actually so crazy how many light rays computers can simulate, and it's so crazy how close to real life these objects look, and it's so crazy that we can model materials with mathematical formulas! It's unfathomable and awe-inspiring just how much computation makes up the reality we live in today. Just want to share some quick stats on exactly what it took to render the header image at the top of this page: </p>
+								<b>Input: </b>
+								<ul>
+									<li>4-core i5-6300HQ</li>
+									<li>128 light ray samples per pixel</li>
+									<li>4 samples per light</li>
+									<li>Maximum ray bounce depth of 7</li>
+									<li>1680 x 720 image resolution</li>
+								</ul>
+								<b>Output: </b>
+								<ul>
+									<li>11.5 minutes to render</li>
+									<li>2.5 billion light rays traced</li>
+									<li>3.7 million light rays per second</li>
+								</ul>
+								<p>I'm really interested in how ray tracing is sped up to eye-level speed utilizing GPUs for video games. Ray-traced VR is literally a simulation of real life! On a side note, let me know if any of the intuition on this page is wrong - I'm still a little unsure about the light bounce behavior (it twists my head in knots like most recursive things). Thanks so much for tuning in! ✌️</p>
+								
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section name="disclosure">
+							<h2 id="to-front">Disclosure</h2>
+							<p id="to-front">The mesh representations of all images shown were given as examples from my Computer Graphics class at Berkeley, <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>. </p>
+							<!-- <ul class="actions">
+								<li><a href="generic.html" class="button" id="to-front">Learn More</a></li>
+							</ul> -->
+						</section>
+						<section>
+							<h2 id="to-front">Contact Me</h2>
+							<dl class="alt" id="to-front">
+								<dt>Email</dt>
+								<dd><span class="rev">ude.yelekreb@eel_j</span></dd>
+							</dl>
+							<ul class="icons">
+								<li><a href="https://linkedin.com/in/jonberkelee" class="icon fa-linkedin alt"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/lolzypops" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright"  id="to-front">&copy; Lolzypops. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/particles.js"></script>
+			<script src="assets/js/app.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
