@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jonathan Lee | CS 184</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		
+		<div id="particles-js"></div>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Cloth Simulator</h1>
+						<p>Simulating the physics of different cloths.</p>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">🏠 Home</a></li>
+							<li><a href="#first" class="active">Simulation Model</a></li>
+							<li><a href="#second">Collisions Model</a></li>
+							<li><a href="#third">Shaders</a></li>
+							<li><a href="#cta">Conclusion</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<section id="content" class="main">
+								<span class="image main"><img src="images/pathtracer/dragon_hq.png" alt="" /></span>
+								<h2>Project Summary</h2>
+								<p>This is a really cool assignment from <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>, Computer Graphics, at Berkeley! In this project, I implement the BSDFs for mirror and glass materials (functions that simulate how light bounces off, diffuses from, or refracts within different materials) as well as a depth of field effect - all accomplished through ray tracing. Check it out!</p>
+
+								<section id="first">
+									<br />
+									<h2>Part 1: Masses and Springs</h2>
+									<p>In this part, we model a piece of cloth as a bunch of point masses connected in space by springs. We utilized 3 different types of springs connecting pairs of point masses: structural, shearing, and bending.</p>
+
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p1a.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">pinned2.json Wireframe</figcaption>
+										</span>
+									</div>
+									<br />
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p1b.PNG" alt="" /><figcaption align="middle">Wireframe w/o Shearing</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p1c.PNG" alt="" /><figcaption align="middle">Wireframe w/ Shearing</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p1d.PNG" alt="" /><figcaption align="middle">Wireframe w/ All Constraints</figcaption></span></div>
+										</div>
+									</div>
+									<br />
+
+									<h2>Part 2: Simulation via Numerical Integration</h2>
+									<p>Next, we simulate all the forces (gravity, spring forces) acting on each point mass of the cloth using Verlet Integration. One interesting addition we were instructed to add was restricting a spring to expand past 10% greater than its rest length in one timestep. This was added to prevent the system from becoming unstable.</p>
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p2_final2.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">pinned2.json with Default Parameters</figcaption>
+										</span>
+									</div>
+									<br />
+									<b>Describe the effects of changing the spring constant <i>ks</i>. How does the cloth behave from start to rest with a very low <i>ks</i>? A high <i>ks</i>?</b>
+									<p>The spring constant determines how "tight" the springs are. A lower <i>ks</i> will experience more displacement in point masses due to forces (more exaggerated motion) from start and converge slowly to a droopy rest state. In contrast, a higher <i>ks</i> will result in a tighter cloth that is less droopy - less absorbant to forces and quicker to converge to a tight, upright rest state.</p>
+									
+									<b>Noticeable differences with default parameters?</b> 
+									<p>A low <i>ks</i> results in a cloth that is a lot more droopy and shows bends due to the cloth being more flexible. A high <i>ks</i> shows some tension on the sides due to greater spring forces.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p2_1000ks.PNG" alt="" /><figcaption align="middle">ks = 1000 N/m</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p2_10000ks.PNG" alt="" /><figcaption align="middle">ks = 10000 N/m</figcaption></span></div>
+										</div>
+									</div>
+
+									<b>What about <i>density</i>?</b>
+									<p>The density determines how "light" the cloth is - how strongly affected the cloth is by gravity. For a low density cloth, the cloth experiences much less fluctuation and bigger forces. In contrast, a high density cloth feels gravity much stronger and develops wrinkles at its rest state, experiencing more stretching and bouncing before settling.</p>
+
+									<b>Noticeable differences with default parameters?</b> 
+									<p>The high density cloth shows bends in the middle of the cloth because of the weight of the cloth against gravity - there's more droopiness because the unpinned middle is experiencing heavy weight.</p>
+
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p2_5density.PNG" alt="" /><figcaption align="middle">density = 5 g/cm<sup>2</sup></figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p2_500density.PNG" alt="" /><figcaption align="middle">density = 500 g/cm<sup>2</sup></figcaption></span></div>
+										</div>
+									</div>
+
+									<b>What about <i>damping</i>?</b>
+									<p>Damping determines how much we move a point mass each time step due to the velocity calculated in the simulation. For a lower damping parameter, we'd move a lot quicker but would also be subject to overshoot, whereas a higher damping would move slower per time step in Verlet integration.</p>
+
+									<b>Noticeable differences with default parameters?</b> 
+									<p>A low damping parameter causes the cloth to overshoot it's rest position whereas a high damping parameter tends to reach the rest position slower. Both parameters, however, result in the same end cloth.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p2_10damp.PNG" alt="" /><figcaption align="middle">damping = 10.3%, after 16 seconds</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p2_50damp.PNG" alt="" /><figcaption align="middle">damping = 50.5%, after 16 seconds</figcaption></span></div>
+										</div>
+									</div>
+
+									<b>Show a cloth pinned at 4 points in its final resting state.</b>
+									<p></p>
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p2_final4.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">pinned2.json with Default Parameters</figcaption>
+										</span>
+									</div>
+
+								</section>
+								
+								<section id="second">
+									<br />
+									<h2>Part 4: Depth of Field</h2>
+									<p>Originally, we had a camera in which we sample several light rays within the area of an image associated with a pixel on the sensor. Now we've introduced a lens into the camera which slightly refracts the direction that a ray originating from the image goes towards on the camera sensor. We imitate the sampling of light through the lens by randomly sampling points in the lens area that a light ray from the image would hit. After we determine the point on the lens that the light ray hits, we can calculate the point on the focal point of the camera lens that the light ray would intersect. This is what appears on the sensor of the camera. The random sampling of a wide range of light that is capable of hitting our camera lens for a specific pixel value on our sensor is what causes the depth of field effect.</p>
+
+									<b>How does a pinhole camera model differ from the thin lens camera model?</b>
+									<p>Pinhole cameras allow very few and specific rays of light to be exposed to a point on the film since light travels in lines and only a few of these lines pass through the pinhole, whereas lens allow multiple rays of light to be focused onto a point on the sensor. However, since the pinhole camera doesn't have a focus (theoretically it can capture every ray in a scene and expose it to a sensor large enough), it has infinite depth of field, everything will be in focus given enough exposure time. On the contrary, only light from regions that are refracted into the focal point of the lens will be perfectly in focus, the area of the sensor away from the focal point will be more and more out of focus - receiving light from different parts of the scene. Lenses tend to gather more light rays from a specific point in the scene which are then focused onto the respective point on the sensor and thus need a much shorter exposure time for a bright image (pinhole camera images tend to be darker since less light is gathered per unit time).</p>
+
+									<b>Focus stack of 4 different focal distances.</b>
+									<p></p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.4.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.4</figcaption></span></div>
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.6.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.6</figcaption></span></div>
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.8.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.8</figcaption></span></div>
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f4.0.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 4.0</figcaption></span></div>
+										</div>
+									</div>
+									<p>We can see that as the focal distance increases, we transition in focus across the head of the dragon to the tail, as the head is closer to our view point than the tail.</p>
+
+									<b>Stack of 4 different apertures.</b>
+									<p></p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.05_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.05, FD = 2.7</figcaption></span></div>
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.15_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.15, FD = 2.7</figcaption></span></div>
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.25_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.25, FD = 2.7</figcaption></span></div>
+											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.35_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.35, FD = 2.7</figcaption></span></div>
+										</div>
+									</div>
+									<p>As we increase the aperture (lens radius), the depth of field gets smaller or the amount of the picture in focus gets smaller and the blur gets stronger as we depart from the area of focus (the chest area of the dragon at a focal distance of 2.7).</p>
+								</section>
+								
+								<section id="cta">
+									<br />
+									<h2>Conclusion</h2>
+									<p>This was such a fun project. It's actually so crazy how many light rays computers can simulate, and it's so crazy how close to real life these objects look, and it's so crazy that we can model materials with mathematical formulas! It's unfathomable and awe-inspiring just how much computation makes up the reality we live in today. Just want to share some quick stats on exactly what it took to render the header image at the top of this page: </p>
+									<b>Input: </b>
+									<ul>
+										<li>4-core i5-6300HQ</li>
+										<li>128 light ray samples per pixel</li>
+										<li>4 samples per light</li>
+										<li>Maximum ray bounce depth of 7</li>
+										<li>1680 x 720 image resolution</li>
+									</ul>
+									<b>Output: </b>
+									<ul>
+										<li>11.5 minutes to render</li>
+										<li>2.5 billion light rays traced</li>
+										<li>3.7 million light rays per second</li>
+									</ul>
+									<p>I'm really interested in how ray tracing is sped up to eye-level speed utilizing GPUs for video games. Ray-traced VR is literally a simulation of real life! On a side note, let me know if any of the intuition on this page is wrong - I'm still a little unsure about the light bounce behavior (it twists my head in knots like most recursive things). Thanks so much for tuning in! ✌️</p>
+								</section>
+								
+								
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section name="disclosure">
+							<h2 id="to-front">Disclosure</h2>
+							<p id="to-front">The mesh representations of all images shown were given as examples from my Computer Graphics class at Berkeley, <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>. </p>
+							<!-- <ul class="actions">
+								<li><a href="generic.html" class="button" id="to-front">Learn More</a></li>
+							</ul> -->
+						</section>
+						<section>
+							<h2 id="to-front">Contact Me</h2>
+							<dl class="alt" id="to-front">
+								<dt>Email</dt>
+								<dd><span class="rev">ude.yelekreb@eel_j</span></dd>
+							</dl>
+							<ul class="icons">
+								<li><a href="https://linkedin.com/in/jonberkelee" class="icon fa-linkedin alt"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/lolzypops" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright"  id="to-front">&copy; Lolzypops. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/particles.js"></script>
+			<script src="assets/js/app.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
