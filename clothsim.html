@@ -70,7 +70,7 @@
 									<div align="center">
 										<span class="image">
 											<img src="images/clothsim/p2_final2.PNG" alt="" width=80% height=60%/>
-											<figcaption align="middle">pinned2.json with Default Parameters</figcaption>
+											<figcaption align="middle">pinned2 with Default Parameters</figcaption>
 										</span>
 									</div>
 									<br />
@@ -116,7 +116,7 @@
 									<div align="center">
 										<span class="image">
 											<img src="images/clothsim/p2_final4.PNG" alt="" width=80% height=60%/>
-											<figcaption align="middle">pinned2.json with Default Parameters</figcaption>
+											<figcaption align="middle">pinned4 with Default Parameters</figcaption>
 										</span>
 									</div>
 
@@ -124,35 +124,21 @@
 								
 								<section id="second">
 									<br />
-									<h2>Part 4: Depth of Field</h2>
-									<p>Originally, we had a camera in which we sample several light rays within the area of an image associated with a pixel on the sensor. Now we've introduced a lens into the camera which slightly refracts the direction that a ray originating from the image goes towards on the camera sensor. We imitate the sampling of light through the lens by randomly sampling points in the lens area that a light ray from the image would hit. After we determine the point on the lens that the light ray hits, we can calculate the point on the focal point of the camera lens that the light ray would intersect. This is what appears on the sensor of the camera. The random sampling of a wide range of light that is capable of hitting our camera lens for a specific pixel value on our sensor is what causes the depth of field effect.</p>
+									<h2>Part 3: Sphere and Plane Collision</h2>
+									<p>Here, we implement functionality to simulate what it'd be like for a cloth to collide and cover a sphere and plane.</p>
 
-									<b>How does a pinhole camera model differ from the thin lens camera model?</b>
-									<p>Pinhole cameras allow very few and specific rays of light to be exposed to a point on the film since light travels in lines and only a few of these lines pass through the pinhole, whereas lens allow multiple rays of light to be focused onto a point on the sensor. However, since the pinhole camera doesn't have a focus (theoretically it can capture every ray in a scene and expose it to a sensor large enough), it has infinite depth of field, everything will be in focus given enough exposure time. On the contrary, only light from regions that are refracted into the focal point of the lens will be perfectly in focus, the area of the sensor away from the focal point will be more and more out of focus - receiving light from different parts of the scene. Lenses tend to gather more light rays from a specific point in the scene which are then focused onto the respective point on the sensor and thus need a much shorter exposure time for a bright image (pinhole camera images tend to be darker since less light is gathered per unit time).</p>
-
-									<b>Focus stack of 4 different focal distances.</b>
-									<p></p>
+									<b>Pictures of a shaded cloth with varying <i>ks</i> values lying on a sphere.</b>
+									<p>As we increase <i>ks</i>, we can see a notable increase in stiffness of the cloth. It doesn't droop over smoothly and there are less wrinkles. These wrinkles, however, stick outward more rather than directly down - showing the stiffness of the cloth and its resistance to gravity.</p>
 									<div class="box alt">
 										<div class="row gtr-uniform">
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.4.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.4</figcaption></span></div>
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.6.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.6</figcaption></span></div>
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f3.8.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 3.8</figcaption></span></div>
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.2_f4.0.png" alt="" /><figcaption align="middle">Aperture = 0.2, FD = 4.0</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p3_500ks.PNG" alt="" /><figcaption align="middle">ks = 500 N/m</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p3_5000ks.PNG" alt="" /><figcaption align="middle">ks = 5000 N/m</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p3_50000ks.PNG" alt="" /><figcaption align="middle">ks = 50000 N/m</figcaption></span></div>
 										</div>
 									</div>
-									<p>We can see that as the focal distance increases, we transition in focus across the head of the dragon to the tail, as the head is closer to our view point than the tail.</p>
 
-									<b>Stack of 4 different apertures.</b>
-									<p></p>
-									<div class="box alt">
-										<div class="row gtr-uniform">
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.05_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.05, FD = 2.7</figcaption></span></div>
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.15_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.15, FD = 2.7</figcaption></span></div>
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.25_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.25, FD = 2.7</figcaption></span></div>
-											<div class="col-3"><span class="image fit"><img src="images/pathtracer/dragon_r0.35_f2.7.png" alt="" /><figcaption align="middle">Aperture = 0.35, FD = 2.7</figcaption></span></div>
-										</div>
-									</div>
-									<p>As we increase the aperture (lens radius), the depth of field gets smaller or the amount of the picture in focus gets smaller and the blur gets stronger as we depart from the area of focus (the chest area of the dragon at a focal distance of 2.7).</p>
+									<h2>Part 4: Handling Self-collisions</h2>
+									
 								</section>
 								
 								<section id="cta">
