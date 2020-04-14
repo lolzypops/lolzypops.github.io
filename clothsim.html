@@ -125,7 +125,7 @@
 								<section id="second">
 									<br />
 									<h2>Part 3: Sphere and Plane Collision</h2>
-									<p>Here, we implement functionality to simulate what it'd be like for a cloth to collide and cover a sphere and plane.</p>
+									<p>Here, we implement functionality to simulate what it'd be like for a cloth to collide and cover a sphere or a plane.</p>
 
 									<b>Pictures of a shaded cloth with varying <i>ks</i> values lying on a sphere.</b>
 									<p>As we increase <i>ks</i>, we can see a notable increase in stiffness of the cloth. It doesn't droop over smoothly and there are less wrinkles. These wrinkles, however, stick outward more rather than directly down - showing the stiffness of the cloth and its resistance to gravity.</p>
@@ -137,8 +137,53 @@
 										</div>
 									</div>
 
+									<b>Pictures of a shaded cloth lying on a plane.</b>
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p3_plane.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">pinned2 with Default Parameters</figcaption>
+										</span>
+									</div>
+
 									<h2>Part 4: Handling Self-collisions</h2>
-									
+									<p>Next, we implement support for the cloth folding against itself when it collapses due to external forces.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p4a1.PNG" alt="" /><figcaption align="middle">Early state.</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p4a2.PNG" alt="" /><figcaption align="middle">Initial self-collisions.</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p4a3.PNG" alt="" /><figcaption align="middle">Final resting state.</figcaption></span></div>
+										</div>
+									</div>
+
+									<b>How does density affect the way the cloth falls on itself?</b>
+									<p>As said above, the denser the cloth, the more weight each point experiences from gravity. We can observe that the denser cloth has way more wrinkles and extreme folds. The lighter cloth also seems to fall slower.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_5density_initial.PNG" alt="" /><figcaption align="middle">density = 5 g/cm<sup>2</sup>, initial.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_5density_final.PNG" alt="" /><figcaption align="middle">density = 5 g/cm<sup>2</sup>, rest.</figcaption></span></div>
+										</div>
+									</div>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_5000density_initial.PNG" alt="" /><figcaption align="middle">density = 5000 g/cm<sup>2</sup>, initial.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_5000density_final.PNG" alt="" /><figcaption align="middle">density = 5000 g/cm<sup>2</sup>, rest.</figcaption></span></div>
+										</div>
+									</div>
+
+									<b>How does <i>ks</i> affect the way the cloth falls on itself?</b>
+									<p>The larger the <i>ks</i>, the stiffer the cloth. The stiffer the cloth, the less folds and wrinkles there'll be - the folds appear larger and smoother.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_50ks_initial.PNG" alt="" /><figcaption align="middle">ks = 50 N/m, initial.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_50ks_final.PNG" alt="" /><figcaption align="middle">ks = 50 N/m, rest.</figcaption></span></div>
+										</div>
+									</div>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_50000ks_initial.PNG" alt="" /><figcaption align="middle">ks = 50000 N/m, initial.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p4_50000ks_final.PNG" alt="" /><figcaption align="middle">ks = 50000 N/m, rest.</figcaption></span></div>
+										</div>
+									</div>
 								</section>
 								
 								<section id="cta">
