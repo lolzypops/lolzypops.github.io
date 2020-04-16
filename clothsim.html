@@ -21,7 +21,7 @@
 				<!-- Header -->
 					<header id="header">
 						<h1>Cloth Simulator</h1>
-						<p>Simulating the physics of different cloths.</p>
+						<p>Simulating the physics and appearance of cloth.</p>
 					</header>
 
 				<!-- Nav -->
@@ -40,9 +40,9 @@
 
 						<!-- Content -->
 							<section id="content" class="main">
-								<span class="image main"><img src="images/pathtracer/dragon_hq.png" alt="" /></span>
+								<span class="image main"><img src="images/clothsim/foldedcloth.PNG" alt="" /></span>
 								<h2>Project Summary</h2>
-								<p>This is a really cool assignment from <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>, Computer Graphics, at Berkeley! In this project, I implement the BSDFs for mirror and glass materials (functions that simulate how light bounces off, diffuses from, or refracts within different materials) as well as a depth of field effect - all accomplished through ray tracing. Check it out!</p>
+								<p>This is an assignment from <a href="https://cs184.eecs.berkeley.edu/">CS 184</a>, Computer Graphics, at Berkeley! In this project, I implement the point mass and spring construction of a piece of cloth, the simulation models behind how it behaves under gravity and when it collides against objects, as well as different shaders to provide more realism and cool visual effects. Check it out!</p>
 
 								<section id="first">
 									<br />
@@ -185,26 +185,90 @@
 										</div>
 									</div>
 								</section>
+
+								<section id="third">
+									<br />
+									<h2>Part 5: Shaders</h2>
+									<p>In this part, we use GLSL to implement vertex and fragment shaders to color our cloth.</p>
+
+									<b>What is a shader program and how do vertex and fragment shaders work?</b>
+									<p>A shader program is an isolated program that runs in parallel with the rendering program that computes the color of each fragment (pixel or subpixels in some cases). Vertex shaders take as input the fragment location, normal, and tangent vectors in model space and output the fragment location, normal, and tangent vectors in screen space. Within the vertex shader, transformations can be done to slightly modify a fragment location in screen space to create some depth and texture effects on the fragment to show up in screen space. Next, fragment shaders take the outputs of a vertex shader and calculate a color for each fragment. Different shaders are defined for different material. Essentially, a fragment shader takes into account light sources in the environment and attributes of the fragment we want to color, as well as a color mapping to determine the output color of the object as it would appear in the view of an observer. This color is then returned to the rendering program and displayed on the user's screen.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p5_diffusesphere1.PNG" alt="" /><figcaption align="middle">Diffuse shaded cloth landing on sphere, initial state.</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p5_diffusesphere2.PNG" alt="" /><figcaption align="middle">Diffuse shaded cloth landing on sphere, in progress.</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p5_diffusesphere3.PNG" alt="" /><figcaption align="middle">Diffuse shaded cloth landing on sphere, at rest.</figcaption></span></div>
+										</div>
+									</div>
+
+									<b>How the Blinn-Phong shading model works.</b>
+									<p>There are three main identifiable types of lighting that appear on different materials in a scene: ambient, diffuse, and specular lighting. The Blinn-Phong model calculates each of these components of light reflected off an object and then adds them together to get the full sense of how light leaves different parts of an object. Below are 3 pictures of the components isolated.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p5_ambient.PNG" alt="" /><figcaption align="middle">Ambient component.</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p5_diffuse.PNG" alt="" /><figcaption align="middle">Diffuse component.</figcaption></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/clothsim/p5_specular.PNG" alt="" /><figcaption align="middle">Specular component.</figcaption></span></div>
+										</div>
+									</div>
+									<p>Combining these 3 components we get a more realistic calculation of lighting given the surface normals of the material. For the tunable parameters, I used k<sub>a</sub> = 0.4, I<sub>a</sub> = <strong>1</strong>, k<sub>d</sub> = 0.8, k<sub>s</sub> = 1.5, p = 50.</p>
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p5_blinnphong2.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">Blinn-Phong shaded output.</figcaption>
+										</span>
+									</div>
+									<p></p>
+
+									<b>How does the texture mapped shader model work?</b>
+									<p>Using barycentric coordinates, we can interpolate from the texture map to a fragment in model space and then transform that point into screen space.</p>
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p5_texture.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">Custom cloth texture.</figcaption>
+										</span>
+									</div>
+									<p></p>
+
+									<b>How does bump and displacement mapping give a sense of texture to an object?</b>
+									<p>Bump mapping samples new normal vectors of a given texture map of the object to model by sampling variations in height of the texture map per change in fragment height or width. We then apply these normal vectors onto our lighting model to have our lighting provide a sense of depth in the creases of our texture. Similarly, displacement mapping samples the texture but instead applies a transformation onto the vertex positions themselves rather than modifying the way light strikes our object.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p5_bumpball.PNG" alt="" /><figcaption align="middle">Sphere with brick texture.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p5_bumpcloth.PNG" alt="" /><figcaption align="middle">Cloth with brick texture.</figcaption></span></div>
+										</div>
+									</div>
+									<div align="center">
+										<span class="image">
+											<img src="images/clothsim/p5_displacementsphere.PNG" alt="" width=80% height=60%/>
+											<figcaption align="middle">Sphere with bump and displacement mapping.</figcaption>
+										</span>
+									</div>
+									<p>We can see that bump mapping doesn't actually change the shape of the object (it's still a perfect sphere), it just provides some cool lighting and shading effects to regions in the bricks that have creases in the texture map. In displacement mapping however, we can see the bricks actually extrude from the sphere in addition to the bump lighting.</p>
+
+									<b>How does mesh coarseness effect bump and displacement mapping?</b>
+									<p>When the mesh is coarser (smaller number of triangles to represent an object), we can see that displacement mapping does a poorer job moving the vertices around to try to represent the brick's rectangular shape. When the mesh is finer, we can see that the bricks are more rectangular, but the greater number of points in an edge of a brick results in a greater variation in normals which in turn causes the edges of the bricks to appear jaggy.</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p5_coarse.PNG" alt="" /><figcaption align="middle">Coarse mesh example.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p5_fine.PNG" alt="" /><figcaption align="middle">Fine mesh example.</figcaption></span></div>
+										</div>
+									</div>
+
+									<b>Fun shader: The Mirror Cloth</b>
+									<p>Going back to what we learned from ray tracing, we can easily shade an object to look like a perfect mirror given an environment map by tracing a ray from the user's view point onto the object and have it reflect perfectly off the object into the environment map. The color the environment has at this tangent point is the color we will paint the object!</p>
+									<div class="box alt">
+										<div class="row gtr-uniform">
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p5_mirrorsphere.PNG" alt="" /><figcaption align="middle">Sphere with mirror shader.</figcaption></span></div>
+											<div class="col-6"><span class="image fit"><img src="images/clothsim/p5_mirrorcloth.PNG" alt="" /><figcaption align="middle">Cloth with mirror shader.</figcaption></span></div>
+										</div>
+									</div>
+
+								</section>
 								
 								<section id="cta">
 									<br />
 									<h2>Conclusion</h2>
-									<p>This was such a fun project. It's actually so crazy how many light rays computers can simulate, and it's so crazy how close to real life these objects look, and it's so crazy that we can model materials with mathematical formulas! It's unfathomable and awe-inspiring just how much computation makes up the reality we live in today. Just want to share some quick stats on exactly what it took to render the header image at the top of this page: </p>
-									<b>Input: </b>
-									<ul>
-										<li>4-core i5-6300HQ</li>
-										<li>128 light ray samples per pixel</li>
-										<li>4 samples per light</li>
-										<li>Maximum ray bounce depth of 7</li>
-										<li>1680 x 720 image resolution</li>
-									</ul>
-									<b>Output: </b>
-									<ul>
-										<li>11.5 minutes to render</li>
-										<li>2.5 billion light rays traced</li>
-										<li>3.7 million light rays per second</li>
-									</ul>
-									<p>I'm really interested in how ray tracing is sped up to eye-level speed utilizing GPUs for video games. Ray-traced VR is literally a simulation of real life! On a side note, let me know if any of the intuition on this page is wrong - I'm still a little unsure about the light bounce behavior (it twists my head in knots like most recursive things). Thanks so much for tuning in! ✌️</p>
+									<p>Dang it's so cool how computers actually attempt to model physics by calculating the forces exerted on different point masses of an object every iteration. It's also super cool how a cloth can be represented by spring forces tying different points together. It seems like with only gravity and spring forces, we were able to find the principal components in cloth physics! I love how in depth this project went into modeling a cloth, even considering how it folds onto itself. If we can now model cloths like this, does this generalize to any object / material in the world now? It's so crazy how we're getting closer and closer to simulating our world digitally. Thanks so much for tuning in! ✌️</p>
 								</section>
 								
 								
